@@ -4,7 +4,7 @@ window.onload = function() {
   var context = stage.getContext("2d");
   document.addEventListener("keydown", keyPush);
 
-  setInterval(game, 65);
+  setInterval(game, 85);
 
   const velocidade = 1;
   
@@ -13,7 +13,10 @@ window.onload = function() {
   var start_y = 15;
   var length_c = 20;
   var qtd = 35;
-  var apple_x = apple_y = 15;
+  var apple_x = apple_y = 0;
+  
+  apple_x = Math.floor(Math.random()*qtd);
+  apple_y = Math.floor(Math.random()*qtd);
     
   var trail = [];
   tail = 5;
@@ -42,14 +45,19 @@ window.onload = function() {
     context.fillStyle = "red";
     context.fillRect(apple_x * length_c, apple_y * length_c, length_c, length_c);
 
-    context.fillStyle = "green";
+    context.fillStyle = "#21ff21";
     for (var i = 0; i <trail.length; i++) {
       context.fillRect(trail[i].x*length_c, trail[i].y*length_c, length_c-1, length_c-1);
 
-      if (trail[i].x == start_x && trail[i].y == start_y) {
-        velocidade_x = velocidade_y = 0;
-        tail = 5;
-      }
+    if (trail[i].x == start_x && trail[i].y == start_y) {
+    velocidade_x = velocidade_y = 0;
+    tail = 5; 
+    start_x = 17;
+    start_y = 22;
+    } 
+
+    
+      
     }
 
     trail.push({x:start_x, y:start_y})
@@ -86,13 +94,11 @@ window.onload = function() {
           velocidade_x = 0;
           velocidade_y = velocidade;
           break;
+      case 82: //restart
+          velocidade_x = velocidade_y = 0;
+          tail = 6;  
       default:
         break;
     }
   }
-
-
-  
-
-
 }
